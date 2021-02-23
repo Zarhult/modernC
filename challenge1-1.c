@@ -28,16 +28,17 @@ void merge_sort(size_t const len, double arr[len]) {
         size_t r_i = 0; // index for going through r_arr
         size_t i = 0;   // index of array merging in to
         /* merge arrays until one of the halves is done */
-        for (; i < len && l_i < mid && r_i < (mid + rem); ++i) {
-            if (l_arr[l_i] < r_arr[r_i]) arr[i] = l_arr[l_i++];
-            else arr[i] = r_arr[r_i++];
+        while(i < len && l_i < mid && r_i < (mid + rem)) {
+            if (l_arr[l_i] < r_arr[r_i])
+                arr[i++] = l_arr[l_i++];
+            else
+                arr[i++] = r_arr[r_i++];
         }
         /* merge in the rest of whichever half is not done, if any */
-        if (l_i < mid) { 
-            for (; i < len; ++i) arr[i] = l_arr[l_i++];
-        } else if (r_i < (mid + rem)) {
-            for (; i < len; ++i) arr[i] = r_arr[r_i++];
-        }
+        while (i < len && l_i < mid)
+            arr[i++] = l_arr[l_i++];
+        while (i < len && r_i < (mid + rem))
+            arr[i++] = r_arr[r_i++];
     } else { // base case
         return;
     }
@@ -76,15 +77,15 @@ void print_arr(size_t const len, double arr[len]) {
 int main(void) {
     double arr[ARR_SIZE] = {
         [0] = -27.5,
-        [1] = 21.39,
-        [2] = 0,
-        [3] = 12,
-        [4] = -5,
+        [1] = -27.5,
+        [2] = 0.0,
+        [3] = 1.0,
+        [4] = -5.0,
         [5] = 32.1282,
-        [6] = 8,
-        [7] = 1.1,
-        [8] = 0,
-        [9] = 1
+        [6] = 1.0,
+        [7] = 1.001,
+        [8] = 0.0,
+        [9] = 1.0
     };
 
     printf("Array before sort:\n");
