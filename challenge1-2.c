@@ -34,40 +34,40 @@ void print_arr(size_t const len, double arr[len]) {
     }
 }
 
+size_t partition(size_t const len, double arr[len]) {
+    /* always pivot at the end, for simplicity */
+    size_t pivot = len - 1;
+    size_t i = 0;
+    size_t j = pivot - 1;
+
+    while (true) {
+        while ((i != (len - 1)) && (arr[i] <= arr[pivot]))
+            ++i;
+        while ((j != 0) && (arr[j] >= arr[pivot]))
+            --j;
+
+        double temp = arr[i];
+        if (i < j) { /* if left and right have not crossed */
+            arr[i] = arr[j];
+            arr[j] = temp;
+        } else {
+            arr[i] = arr[pivot];
+            arr[pivot] = temp;
+            return i; /* return index the pivot was moved to */
+        }
+    }
+}
+
 void quick_sort(size_t const len, double arr[len]) {
     if (len < 2) return;
 
-    /* always pivot at the end, for simplicity */
-    size_t pivot = len - 1;
-    size_t left = 0;
-    size_t right = pivot - 1;
-
-    /* partition the array */
-    /* do so within this function so as to avoid using pointers */
-    while (true) {
-        size_t i = left;
-        size_t j = right;
-        while (i < pivot && arr[i] <= arr[pivot])
-            ++i;
-        while (j >= 0 && arr[j] > arr[pivot])
-            --j;
-
-        size_t temp = arr[j];
-        if (i < j) {
-            arr[j] = arr[i];
-            arr[i] = temp;
-        } else {
-            arr[j] = arr[pivot];
-            arr[pivot] = temp;
-            break;
-        }
-    }
+    size_t final_pivot_index = partition(len, arr);
 
     /* now pivot has been moved to its proper location */
-    /* left half spans from left to pivot-1 */
-    quick_sort(pivot, arr);
-    /* right half spans from pivot+1 to len-1*/
-    quick_sort((len - pivot - 1), arr + pivot + 1);
+    /* left half spans from 0 to final_pivot_index-1 */
+    quick_sort(final_pivot_index, arr);
+    /* right half spans from final_pivot_index+1 to len-1 */
+    quick_sort(len - final_pivot_index - 1, arr + final_pivot_index + 1);
 }
 
 int main(void) {
