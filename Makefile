@@ -1,3 +1,3 @@
-FILENAME=challenge1-2.c
+FILENAME=challenge2.c
 main: $(FILENAME)
-	gcc -g $(FILENAME)
+	gcc -g -lm $(FILENAME)
