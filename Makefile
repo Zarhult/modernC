@@ -1,3 +1,3 @@
-FILENAME=challenge2.c
+FILENAME=challenge3.c
 main: $(FILENAME)
-	gcc -g -lm $(FILENAME)
+	gcc -O2 -march=native -g -lm $(FILENAME)
